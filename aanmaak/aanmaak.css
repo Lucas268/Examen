@@ -1,0 +1,118 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+
+}
+.box{
+    position: relative;
+    max-width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    background-color: rgba(133, 139, 139, 1);
+    flex: 1;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.box ul{
+    list-style: none;
+}
+
+/* .projectnaam{
+    position: relative;
+    font-size: 23px;
+}
+
+.bedrijf{
+    position: relative;
+    font-size: 23px;
+}
+.opdracht{
+    position: relative;
+    font-size: 23px;
+}
+
+.programeertalen{
+    position: relative;
+    font-size: 23px;
+}
+
+.soort{
+    position: relative;
+    font-size: 23px;
+} 
+
+.startdatum{
+    position: relative;
+    font-size: 23px;
+}
+
+.einddatum{
+    position: relative;
+    font-size: 23px;
+}  */
+
+.een{
+    position: relative;
+    font-size: 23px;
+}
+.beschrijving{
+    position: relative;
+    font-size: 23px;
+    height: 150px;
+    width: 180%;
+    display: block; /* Ensure block display */
+    padding: 10px; /* Add padding for spacing */
+    box-sizing: border-box; /* Include padding in height/width */
+    overflow: auto; /* Handle overflow */
+    text-align: left; /* Text alignment */
+}
+
+.content {
+    display: flex;
+    margin: 20px 0;
+}
+
+.terug-button {
+    position: absolute ;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background-color: #0073e6;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+.submit-button {
+    position: relative ;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background-color: #0073e6;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.file-upload {
+    display: none;
+}
+.custom-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.custom-button:hover {
+    background-color: #45a049;
+}
