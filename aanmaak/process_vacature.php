@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $projectname = $_POST['projectname'];
     $bedrijf = $_POST['bedrijf'];
     $opdracht = $_POST['opdracht'];
-    $codetaal = $_POST['codetaal'];
+    $programmeertalen = $_POST['programmeertalen'];
     $soort = $_POST['soort'];
     $startdatum = $_POST['startdatum'];
     $einddatum = $_POST['einddatum'];
@@ -63,12 +63,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Add the insert query to insert data into the database
-    $sql = "INSERT INTO vacatures (title, bedrijf, opdracht, codetaal, soort, start_datum, eind_datum, description, thumbnail, creator_email) 
+    $sql = "INSERT INTO vacatures (title, bedrijf, opdracht, programmeertalen, soort, start_datum, eind_datum, description, thumbnail, creator_email) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     if ($stmt = mysqli_prepare($connection, $sql)) {
         // Bind parameters (including the thumbnail path)
-        mysqli_stmt_bind_param($stmt, "ssssssssss", $projectname, $bedrijf, $opdracht, $codetaal, $soort, $startdatum, $einddatum, $beschrijving, $thumbnailPath, $username);
+        mysqli_stmt_bind_param($stmt, "ssssssssss", $projectname, $bedrijf, $opdracht, $programmeertalen, $soort, $startdatum, $einddatum, $beschrijving, $thumbnailPath, $username);
 
         if (mysqli_stmt_execute($stmt)) {
             echo "Opdracht submitted successfully!";

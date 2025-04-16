@@ -1,33 +1,38 @@
 <?php
-// Functionality to edit a job
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editOpdrachtId']) && $username) {
-    $opdrachtId = mysqli_real_escape_string($connection, $_POST['editOpdrachtId']);
-    $title = mysqli_real_escape_string($connection, $_POST['title']);
-    $bedrijf = mysqli_real_escape_string($connection, $_POST['bedrijf']);
-    $soort = mysqli_real_escape_string($connection, $_POST['soort']);
-    $codetaal = mysqli_real_escape_string($connection, $_POST['codetaal']);
-    $start_datum = mysqli_real_escape_string($connection, $_POST['start_datum']);
-    $eind_datum = mysqli_real_escape_string($connection, $_POST['eind_datum']);
-    $description = mysqli_real_escape_string($connection, $_POST['description']);
+session_start();
+require '../db_connection/db.php';
 
-    $updateQuery = "
-        UPDATE vacatures 
-        SET title = '$title', bedrijf = '$bedrijf', soort = '$soort', codetaal = '$codetaal', start_datum = '$start_datum', eind_datum = '$eind_datum', description = '$description' 
-        WHERE id = '$opdrachtId' AND creator_email = '$username'
-    ";
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['email'])) {
+    $id = $_POST['id'];
+    $title = $_POST['title'];
+    $bedrijf = $_POST['bedrijf'];
+    $soort = $_POST['soort'];
+    $programmeertalen = $_POST['programmeertalen'];
+    $start_datum = $_POST['start_datum'];
+    $eind_datum = $_POST['eind_datum'];
+    $description = $_POST['description'];
 
-    if (!mysqli_query($connection, $updateQuery)) {
-        die('Error: ' . mysqli_error($connection));
+    // Check ownership
+    $stmt = $connection->prepare("SELECT creator_email FROM vacatures WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $stmt->bind_result($creator_email);
+    $stmt->fetch();
+    $stmt->close();
+
+    if ($_SESSION['email'] !== $creator_email) {
+        die("Unauthorized.");
+    }
+
+    // Update the database
+    $stmt = $connection->prepare("UPDATE vacatures SET title = ?, bedrijf = ?, soort = ?, programmeertalen = ?, start_datum = ?, eind_datum = ?, description = ? WHERE id = ?");
+    $stmt->bind_param("sssssssi", $title, $bedrijf, $soort, $programmeertalen, $start_datum, $eind_datum, $description, $id);
+
+    if ($stmt->execute()) {
+        header("Location: ../main/main.php");
+        exit();
+    } else {
+        echo "Update failed.";
     }
 }
-echo "<form method='post' action=''>";
-echo "<input type='hidden' name='editOpdrachtId' value='" . htmlspecialchars($row['id']) . "'>";
-echo "<input type='text' name='title' value='" . htmlspecialchars($row['title']) . "' required>";
-echo "<input type='text' name='bedrijf' value='" . htmlspecialchars($row['bedrijf']) . "' required>";
-echo "<input type='text' name='soort' value='" . htmlspecialchars($row['soort']) . "' required>";
-echo "<input type='text' name='codetaal' value='" . htmlspecialchars($row['codetaal']) . "' required>";
-echo "<input type='date' name='start_datum' value='" . htmlspecialchars($row['start_datum']) . "' required>";
-echo "<input type='date' name='eind_datum' value='" . htmlspecialchars($row['eind_datum']) . "' required>";
-echo "<textarea name='description' required>" . htmlspecialchars($row['description']) . "</textarea>";
-echo "<button type='submit' class='details-knop'>Save</button>";
-echo "</form>";
+?>
