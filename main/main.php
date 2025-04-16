@@ -15,7 +15,7 @@ if (isset($_SESSION['user_id'])) {
 $searchTerm = isset($_GET['zoekterm']) ? mysqli_real_escape_string($connection, $_GET['zoekterm']) : '';
 
 // Construct the SQL query to search for jobs based on the search term
-$query = "SELECT id, title, bedrijf, soort, codetaal, start_datum, eind_datum, description, thumbnail, creator_email, inschrijvingen 
+$query = "SELECT id, title, bedrijf, soort, programmeertalen, start_datum, eind_datum, description, thumbnail, creator_email, inschrijvingen 
           FROM vacatures 
           WHERE title LIKE '%$searchTerm%' OR bedrijf LIKE '%$searchTerm%' OR description LIKE '%$searchTerm%' 
           LIMIT 20";
@@ -147,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['opdrachtIdUnsubscribe
                     echo "<h3>" . htmlspecialchars($row['title']) . "</h3>";
                     echo "<p><strong>Bedrijf:</strong> " . htmlspecialchars($row['bedrijf']) . "</p>";
                     echo "<p><strong>Soort:</strong> " . htmlspecialchars($row['soort']) . "</p>";
-                    echo "<p><strong>Code taal:</strong> " . htmlspecialchars($row['codetaal']) . "</p>";
+                    echo "<p><strong>programmeertalen:</strong> " . htmlspecialchars($row['programmeertalen']) . "</p>";
                     echo "<p><strong>Startdatum:</strong> " . htmlspecialchars($row['start_datum']) . "</p>";
                     echo "<p><strong>Einddatum:</strong> " . htmlspecialchars($row['eind_datum']) . "</p>";
                     echo "<p><strong>Beschrijving:</strong> " . htmlspecialchars($row['description']) . "</p>";
@@ -181,10 +181,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['opdrachtIdUnsubscribe
 
                     // **Restored Edit and Delete buttons**
                     if ($username && $row['creator_email'] == $username) {
-                        echo "<form action='../db.php' method='POST'>";
-                        echo "<input type='hidden' name='opdrachtId' value='" . htmlspecialchars($row['id']) . "'>";
-                        echo "<button type='update' class='details-knop'>Edit</button>";
+                        echo "<button type='button' class='details-knop' onclick='toggleEditMode(" . $row['id'] . ")'>Edit</button>";
+
+                        echo "<form id='editForm-" . $row['id'] . "' method='post' action='../aanmaak/edit.php' style='display:none;'>";
+                        
+                        // Hidden ID field
+                        echo "<input type='hidden' name='id' value='" . htmlspecialchars($row['id']) . "'>";
+                        
+                        // Editable fields
+                        echo "<label>Titel: <input type='text' name='title' value='" . htmlspecialchars($row['title']) . "'></label><br>";
+                        echo "<label>Bedrijf: <input type='text' name='bedrijf' value='" . htmlspecialchars($row['bedrijf']) . "'></label><br>";
+                        echo "<label>Soort: <input type='text' name='soort' value='" . htmlspecialchars($row['soort']) . "'></label><br>";
+                        echo "<label>Programmeertalen: <input type='text' name='programmeertalen' value='" . htmlspecialchars($row['programmeertalen']) . "'></label><br>";
+                        echo "<label>Startdatum: <input type='date' name='start_datum' value='" . htmlspecialchars($row['start_datum']) . "'></label><br>";
+                        echo "<label>Einddatum: <input type='date' name='eind_datum' value='" . htmlspecialchars($row['eind_datum']) . "'></label><br>";
+                        echo "<label>Beschrijving:<br><textarea name='description'>" . htmlspecialchars($row['description']) . "</textarea></label><br>";
+                        
+                        echo "<button type='submit' class='details-knop'>Save</button>";
+                        echo "<button type='button' class='details-knop' onclick='toggleEditMode(" . $row['id'] . ")'>Cancel</button>";
+                        
                         echo "</form>";
+                        
+                        
 
                         echo "<form action='../aanmaak/delete_aanmaak.php' method='post' onsubmit='return confirm(\"Are you sure you want to delete this item?\");'>";
                         echo "<input type='hidden' name='opdrachtId' value='" . htmlspecialchars($row['id']) . "'>";
@@ -212,5 +230,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['opdrachtIdUnsubscribe
             document.getElementById(id).style.display = 'block';
         }
     </script>
+
+    <script>
+    function toggleEditMode(id) {
+        const form = document.getElementById('editForm-' + id);
+        form.style.display = (form.style.display === 'none' || form.style.display === '') ? 'block' : 'none';
+    }
+</script>
 </body>
 </html>

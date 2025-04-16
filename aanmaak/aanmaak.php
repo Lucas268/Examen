@@ -21,7 +21,7 @@
                 <li><input type="text" class="een" name="projectname" placeholder="Projectnaam" required></li><br>
                 <li><input type="text" class="een" name="bedrijf" placeholder="Bedrijf" required></li><br>
                 <li><input type="text" class="een" name="opdracht" placeholder="Opdracht" required></li><br>
-                <li><input type="text" class="een" name="codetaal" placeholder="Programmeertalen" required></li><br>
+                <li><input type="text" class="een" name="programmeertalen" placeholder="Programmeertalen" required></li><br>
                 <li><select class="een" name="soort" required><option value="" disabled selected>Soort</option> <option value="Full-time">Full-time</option> <option value="Part-time">Part-time</option></select></li><br>
 
                 
