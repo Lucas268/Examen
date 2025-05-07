@@ -9,17 +9,17 @@
 <body>
     <main id="login-container">
         <section id="group25" class="group25">
-            <div id="rectangle2" class="rectangle2"></div>
-            <div id="rectangle21" class="rectangle21"></div>
-            <div id="rectangle14" class="rectangle14"></div>
-            <div id="rectangle22" class="rectangle22"></div>
-            <div id="rectangle23" class="rectangle23"></div>
             <h1 id="login" class="login">LOGIN</h1>
-            <p id="loginmetjevistaemail" class="loginmetjevistaemail">Login met je vista email</p>
-            <label id="wachtwoord" class="wachtwoord" for="password">Wachtwoord</label>
-            <input type="password" id="password" name="password" class="password-input">
+            <form action="inlog.php" method="POST">
+                <p id="loginmetjevistaemail" class="loginmetjevistaemail">Login met je vista email</p>
+                <label id="wachtwoord" class="wachtwoord" for="email">Email</label>
+                <input type="email" id="email" name="email" class="password-input" required>
+                <label id="wachtwoord" class="wachtwoord" for="password">Wachtwoord</label>
+                <input type="password" id="password" name="password" class="password-input" required>
+                <button type="submit" class="rectangle14">Login</button>
+            </form>
             <a id="wachtwoordvergeten" class="wachtwoordvergeten" href="#">Wachtwoord vergeten?</a>
-            <a id="accountaanmaken" class="accountaanmaken" href="#">Account aanmaken</a>
+            <a id="accountaanmaken" class="accountaanmaken" href="/accountaanmaak/accountaanmaken.php">Account aanmaken</a>
         </section>
     </main>
 </body>
