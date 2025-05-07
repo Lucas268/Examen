@@ -134,6 +134,7 @@
           <button>Solliciteren</button>
         </div>
       </div>
+      
       <!-- Meer vacatures indien gewenst -->
     </div>
 
