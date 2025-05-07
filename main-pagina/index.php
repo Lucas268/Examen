@@ -9,6 +9,10 @@
   <div class="navbar">
     <div>Open<span>OPDRACHTEN</span> 🔍</div>
     <div>Welkom, <strong>Caio Goessens</strong></div>
+    <div>
+      <button onclick="location.href='/aanmaak-pagina/aanmaak.php'">Aanmaak Pagina</button>
+      <button onclick="location.href='/inlog-pagina/inlog.php'">Login</button>
+    </div>
   </div>
 
   <div class="container">
