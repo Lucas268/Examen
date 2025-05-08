@@ -71,10 +71,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         file_put_contents('error_log.txt', "Error preparing query: " . mysqli_error($connection) . "\n", FILE_APPEND);
     }
 }
-?>
-
-<script>
-    setTimeout(function() {
-        window.location.href = '../main/main.php';
-    }, 3000);
-</script>

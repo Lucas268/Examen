@@ -1,5 +1,6 @@
 <?php
 require '../database/db.php';
+require 'vacature_aanmaak_func.php';
 ?>
 <!DOCTYPE html>
 <html lang="nl">

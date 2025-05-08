@@ -1,3 +1,7 @@
+<?php
+ require '../database/db.php';
+ session_start();
+?>
 <!DOCTYPE html>
 <html lang="nl">
 <head>
