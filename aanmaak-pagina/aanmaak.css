@@ -78,6 +78,14 @@ select {
   font-size: 1rem;
 }
 
+input[type="date"] {
+  padding: 0.9rem 1.2rem;
+  border-radius: 25px;
+  border: none;
+  background-color: #d8cccc;
+  font-size: 1rem;
+}
+
 textarea {
   resize: none;
   height: 150px;
@@ -97,9 +105,9 @@ textarea {
   background-color: #155c5e;
   color: white;
   border: none;
-  border-radius: 30px;
+  border-radius: 25px;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1rem;
   justify-self: end;
   margin-top: 1rem;
 }

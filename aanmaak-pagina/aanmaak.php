@@ -34,6 +34,10 @@ require '../database/db.php';
         <input type="text" id="talen">
       </div>
       <div class="form-group">
+        <label for="thumbnail">Thumbnail</label>
+        <button class="upload-button" disabled>Uploaden</button>
+      </div>
+      <div class="form-group">
         <label for="opdracht">Opdracht</label>
         <textarea id="opdracht"></textarea>
       </div>
@@ -42,20 +46,12 @@ require '../database/db.php';
         <textarea id="beschrijving"></textarea>
       </div>
       <div class="form-group">
-        <label for="thumbnail">Thumbnail</label>
-        <button class="upload-button" disabled>Uploaden</button>
-      </div>
-      <div class="form-group">
         <label for="startdatum">Startdatum</label>
-        <select id="startdatum">
-          <option>Kies een datum</option>
-        </select>
+        <input type="date" id="startdatum" name="startdatum">
       </div>
       <div class="form-group">
         <label for="einddatum">Einddatum</label>
-        <select id="einddatum">
-          <option>Kies een datum</option>
-        </select>
+        <input type="date" id="einddatum" name="einddatum">
       </div>
       <div class="form-group full-width">
         <button type="submit" class="submit-button">VERSTUREN!</button>
