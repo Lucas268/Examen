@@ -48,17 +48,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = mysqli_stmt_execute($stmt);
 
     if ($result) {
-        echo json_encode(['success' => true]);
+        // Start a session and set session variables for the user
+        session_start();
+        $_SESSION['user_id'] = mysqli_insert_id($connection); // Get the last inserted user ID
+        $_SESSION['email'] = $email; // Store email in session
+
+        // Redirect the user to the main page after successful registration
+        header("Location: ../main-pagina/index.php");
+        exit();
     } else {
         echo json_encode(['success' => false, 'error' => 'Failed to insert data: ' . mysqli_error($connection)]);
     }
 
+    // Close the prepared statement
     mysqli_stmt_close($stmt);
-    header("Location: ../inlog-pagina/inlog.php");
 }
 ?>
-<script>
-    setTimeout(function() {
-        window.location.href = '../main-pagina/index.php';
-    }, 3000); 
-</script>

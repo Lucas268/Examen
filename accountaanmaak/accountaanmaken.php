@@ -1,5 +1,6 @@
 <?php
 require '../database/db.php'; 
+require 'accountaanmaak_func.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
