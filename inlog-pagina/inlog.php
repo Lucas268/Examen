@@ -13,7 +13,7 @@ require '../database/db.php';
     <main id="login-container">
         <section id="group25" class="group25">
             <h1 id="login" class="login">LOGIN</h1>
-            <form action="inlog.php" method="POST">
+            <form action="inlog_func.php" method="POST">
                 <p id="loginmetjevistaemail" class="loginmetjevistaemail">Login met je vista email</p>
                 <label id="wachtwoord" class="wachtwoord" for="email">Email</label>
                 <input type="email" id="email" name="email" class="password-input" required>
