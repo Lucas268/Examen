@@ -10,11 +10,10 @@ if (isset($_SESSION['user_id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $projectname = $_POST['projectname'];
+    $projectname = $_POST['projectnaam'];
     $bedrijf = $_POST['bedrijf'];
     $opdracht = $_POST['opdracht'];
-    $codetaal = $_POST['codetaal'];
-    $soort = $_POST['soort'];
+    $programmeertalen = $_POST['programmeertalen'];
     $startdatum = $_POST['startdatum'];
     $einddatum = $_POST['einddatum'];
     $beschrijving = $_POST['beschrijving'];
@@ -52,14 +51,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $thumbnailPath = null;
     }
 
-    $sql = "INSERT INTO vacatures (title, bedrijf, opdracht, codetaal, soort, start_datum, eind_datum, description, thumbnail, creator_email) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO vacatures (title, bedrijf, opdracht, programmeertalen, start_datum, eind_datum, description, thumbnail, creator_email) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     if ($stmt = mysqli_prepare($connection, $sql)) {
-        mysqli_stmt_bind_param($stmt, "ssssssssss", $projectname, $bedrijf, $opdracht, $codetaal, $soort, $startdatum, $einddatum, $beschrijving, $thumbnailPath, $username);
+        mysqli_stmt_bind_param($stmt, "sssssssss", $projectname, $bedrijf, $opdracht, $programmeertalen, $startdatum, $einddatum, $beschrijving, $thumbnailPath, $username);
 
         if (mysqli_stmt_execute($stmt)) {
             echo "Opdracht submitted successfully!";
+            echo "<p>Redirecting in 5 seconds...</p>";
+            echo "<script>
+                    setTimeout(function() {
+                        window.location.href = '../main-pagina/index.php';
+                    }, 5000);
+                  </script>";
         } else {
             echo "Error executing query: " . mysqli_error($connection);
             file_put_contents('error_log.txt', "Error executing query: " . mysqli_error($connection) . "\n", FILE_APPEND);

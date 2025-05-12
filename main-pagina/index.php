@@ -1,6 +1,10 @@
 <?php
- require '../database/db.php';
- session_start();
+require '../database/db.php';
+session_start();
+
+// Fetch available assets from the database
+$sql = "SELECT title, bedrijf, description, thumbnail FROM vacatures";
+$result = $connection->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -12,7 +16,7 @@
 <body>
   <div class="navbar">
     <div>Open<span>OPDRACHTEN</span> 🔍</div>
-    <div>Welkom, <strong>Caio Goessens</strong></div>
+    <div>Welkom, <strong><?= isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Gast'; ?></strong></div>
     <div>
       <button onclick="location.href='/aanmaak-pagina/aanmaak.php'">Aanmaak Pagina</button>
       <button onclick="location.href='/inlog-pagina/inlog.php'">Login</button>
@@ -22,16 +26,23 @@
   <div class="container">
     <!-- Opdrachten -->
     <div class="paneel opdrachten">
-      <div class="opdracht">
-        <h3>Visvijver Website</h3>
-        <p>Caio Goessens</p>
-        <p>➤ Beschrijving<br>We willen onze klanten een gebruiksvriendelijke en aantrekkelijke website bieden...</p>
-        <div class="cta">
-          <span>Studenten: 6</span>
-          <button>Solliciteren</button>
-        </div>
-      </div>
-      <!-- Meer opdrachten indien gewenst -->
+      <?php if ($result && $result->num_rows > 0): ?>
+        <?php while ($row = $result->fetch_assoc()): ?>
+          <div class="opdracht">
+            <h3><?= htmlspecialchars($row['title']); ?></h3>
+            <p><?= htmlspecialchars($row['bedrijf']); ?></p>
+            <p>➤ Beschrijving<br><?= htmlspecialchars($row['description']); ?></p>
+            <?php if (!empty($row['thumbnail'])): ?>
+              <img src="<?= htmlspecialchars($row['thumbnail']); ?>" alt="Thumbnail" style="max-width: 100%; height: auto;">
+            <?php endif; ?>
+            <div class="cta">
+              <button>Solliciteren</button>
+            </div>
+          </div>
+        <?php endwhile; ?>
+      <?php else: ?>
+        <p>Geen opdrachten beschikbaar.</p>
+      <?php endif; ?>
     </div>
 
     <!-- Opdracht Info -->
@@ -43,7 +54,7 @@
 
     <!-- Welkom -->
     <div class="welkom">
-      <h1>Welkom,<br><span>Caio Goessens</span></h1>
+      <h1>Welkom,<br><span><?= isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Gast'; ?></span></h1>
     </div>
   </div>
 </body>

@@ -21,38 +21,39 @@ require 'vacature_aanmaak_func.php';
   <div class="container">
     <div class="close-button">&times;</div>
     <h2>Vacature <strong>AANMAKEN</strong></h2>
-    <form>
+    <form action="vacature_aanmaak_func.php" method="POST" enctype="multipart/form-data">
       <div class="form-group">
         <label for="projectnaam">Project Naam</label>
-        <input type="text" id="projectnaam">
+        <input type="text" id="projectnaam" name="projectnaam" required>
       </div>
       <div class="form-group">
         <label for="bedrijf">Bedrijf</label>
-        <input type="text" id="bedrijf">
+        <input type="text" id="bedrijf" name="bedrijf" required>
       </div>
       <div class="form-group">
         <label for="talen">Programmeer Talen</label>
-        <input type="text" id="talen">
+        <input type="text" id="talen" name="programmeertalen" required>
       </div>
       <div class="form-group">
         <label for="thumbnail">Thumbnail</label>
-        <button class="upload-button" disabled>Uploaden</button>
+        <input type="file" id="thumbnail" name="thumbnail" accept="image/*" style="display: none;">
+        <button type="button" class="upload-button" onclick="document.getElementById('thumbnail').click();">Uploaden</button>
       </div>
       <div class="form-group">
         <label for="opdracht">Opdracht</label>
-        <textarea id="opdracht"></textarea>
+        <textarea id="opdracht" name="opdracht" required></textarea>
       </div>
       <div class="form-group">
         <label for="beschrijving">Beschrijving</label>
-        <textarea id="beschrijving"></textarea>
+        <textarea id="beschrijving" name="beschrijving" required></textarea>
       </div>
       <div class="form-group">
         <label for="startdatum">Startdatum</label>
-        <input type="date" id="startdatum" name="startdatum">
+        <input type="date" id="startdatum" name="startdatum" required>
       </div>
       <div class="form-group">
         <label for="einddatum">Einddatum</label>
-        <input type="date" id="einddatum" name="einddatum">
+        <input type="date" id="einddatum" name="einddatum" required>
       </div>
       <div class="form-group full-width">
         <button type="submit" class="submit-button">VERSTUREN!</button>
