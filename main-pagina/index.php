@@ -2,8 +2,16 @@
 require '../database/db.php';
 session_start();
 
-// Fetch available assets from the database
-$sql = "SELECT title, bedrijf, description, thumbnail FROM vacatures";
+// Handle search input
+$zoekterm = isset($_GET['zoekterm']) ? $connection->real_escape_string($_GET['zoekterm']) : '';
+if (!empty($zoekterm)) {
+    $sql = "SELECT title, bedrijf, description, thumbnail FROM vacatures 
+            WHERE title LIKE '%$zoekterm%' 
+               OR bedrijf LIKE '%$zoekterm%' 
+               OR description LIKE '%$zoekterm%'";
+} else {
+    $sql = "SELECT title, bedrijf, description, thumbnail FROM vacatures";
+}
 $result = $connection->query($sql);
 ?>
 <!DOCTYPE html>
@@ -12,11 +20,45 @@ $result = $connection->query($sql);
   <meta charset="UTF-8">
   <title>Opdrachten Overzicht</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .searchbar-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .searchbar-container form {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .searchbar-container input[type="text"] {
+      padding: 6px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .searchbar-container button {
+      padding: 6px 12px;
+      background-color: #00b3a4;
+      border: none;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
   <div class="navbar">
     <div>Open<span>OPDRACHTEN</span> 🔍</div>
-    <div>Welkom, <strong><?= isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Gast'; ?></strong></div>
+    
+    <!-- Search bar here -->
+    <div class="searchbar-container">
+      <form method="GET" action="">
+        <input type="text" name="zoekterm" placeholder="Zoek opdrachten..." value="<?= isset($_GET['zoekterm']) ? htmlspecialchars($_GET['zoekterm']) : '' ?>">
+        <button type="submit">🔍</button>
+      </form>
+    </div>
+    
     <div>
       <button onclick="location.href='/aanmaak-pagina/aanmaak.php'">Aanmaak Pagina</button>
       <button onclick="location.href='/inlog-pagina/inlog.php'">Login</button>

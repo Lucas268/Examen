@@ -106,3 +106,34 @@ body {
 .welkom h1 span {
   font-weight: 700;
 }
+
+:root {
+  --searchbar-bg: #d6e4e5;
+  --searchbar-border: #ccc;
+  --searchbar-text: #000000;
+  --searchbar-button-bg: #00b3a4;
+  --searchbar-button-text: #ffffff;
+  --searchbar-button-hover: #009688;
+}
+
+.searchbar-container input[type="text"] {
+  padding: 6px 10px;
+  border: 1px solid var(--searchbar-border);
+  border-radius: 4px;
+  background-color: var(--searchbar-bg);
+  color: var(--searchbar-text);
+  width: 450px;
+}
+
+.searchbar-container button {
+  padding: 6px 12px;
+  background-color: var(--searchbar-button-bg);
+  border: none;
+  color: var(--searchbar-button-text);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.searchbar-container button:hover {
+  background-color: var(--searchbar-button-hover);
+}
