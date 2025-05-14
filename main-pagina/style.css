@@ -137,3 +137,8 @@ body {
 .searchbar-container button:hover {
   background-color: var(--searchbar-button-hover);
 }
+.paneel.opdrachten {
+  max-height: 590px; /* or any desired height */
+  overflow-y: auto;
+  padding-right: 10px; /* optional: for better scroll experience */
+}
