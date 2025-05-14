@@ -18,7 +18,7 @@ require 'vacature_aanmaak_func.php';
   </div>
 
   <div class="container">
-    <div class="close-button">&times;</div>
+    
     <h2>Vacature <strong>AANMAKEN</strong></h2>
     <form action="vacature_aanmaak_func.php" method="POST" enctype="multipart/form-data">
       <div class="form-group">
@@ -59,5 +59,19 @@ require 'vacature_aanmaak_func.php';
       </div>
     </form>
   </div>
+
+  <script>
+  const form = document.querySelector('form');
+  const submitButton = document.querySelector('.submit-button');
+
+  form.addEventListener('submit', () => {
+    submitButton.style.backgroundColor = '#E56642';
+    submitButton.style.color = 'white';
+  });
+</script>
+
 </body>
 </html>
+
+
+
