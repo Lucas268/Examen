@@ -20,46 +20,7 @@ $result = $connection->query($sql);
   <meta charset="UTF-8">
   <title>Opdrachten Overzicht</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    .searchbar-container {
-      display: flex;
-      align-items: center;
-    }
 
-    .searchbar-container form {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .searchbar-container input[type="text"] {
-      padding: 6px 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    .searchbar-container button {
-      padding: 6px 12px;
-      background-color: #00b3a4;
-      border: none;
-      color: white;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .navbar button {
-      padding: 6px 12px;
-      background-color: #00b3a4;
-      border: none;
-      color: white;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-left: 5px;
-    }
-
-    .navbar button:hover {
-      background-color: #008f87;
-    }
-  </style>
 </head>
 <body>
   <div class="navbar">
