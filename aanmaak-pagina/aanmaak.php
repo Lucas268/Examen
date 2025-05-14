@@ -9,13 +9,12 @@ require 'vacature_aanmaak_func.php';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vacature Aanmaken</title>
   <link rel="stylesheet" href="aanmaak.css">
+
 </head>
 <body>
   <div class="header">
     <h1>mijnVISTA</h1>
-    <div class="search-bar">
-      <input type="text" placeholder="Zoeken">
-    </div>
+    <button onclick="location.href='../main-pagina/index.php'" style="position: absolute; top: 10px; right: 10px;">Terug</button>
   </div>
 
   <div class="container">
