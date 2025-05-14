@@ -61,7 +61,11 @@ $result = $connection->query($sql);
     
     <div>
       <button onclick="location.href='/aanmaak-pagina/aanmaak.php'">Aanmaak Pagina</button>
-      <button onclick="location.href='/inlog-pagina/inlog.php'">Login</button>
+      <?php if (isset($_SESSION['email'])): ?>
+        <button onclick="location.href='/logout.php'">Logout</button>
+      <?php else: ?>
+        <button onclick="location.href='/inlog-pagina/inlog.php'">Login</button>
+      <?php endif; ?>
     </div>
   </div>
 
