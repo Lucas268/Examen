@@ -20,7 +20,6 @@ $result = $connection->query($sql);
   <meta charset="UTF-8">
   <title>Opdrachten Overzicht</title>
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     .searchbar-container {
       display: flex;

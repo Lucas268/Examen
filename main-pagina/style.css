@@ -25,6 +25,20 @@ button{
   color: #00b3a4;
 }
 
+.navbar button {
+  padding: 6px 12px;
+  background-color: #00b3a4;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.navbar button:hover {
+  background-color: #008f87;
+}
+
 .container {
   display: flex;
   gap: 20px;
@@ -120,6 +134,16 @@ button{
   --searchbar-button-hover: #009688;
 }
 
+.searchbar-container {
+  display: flex;
+  align-items: center;
+}
+
+.searchbar-container form {
+  display: flex;
+  gap: 0.5rem;
+}
+
 .searchbar-container input[type="text"] {
   padding: 6px 10px;
   border: 1px solid var(--searchbar-border);
@@ -143,8 +167,9 @@ button{
 .searchbar-container button:hover {
   background-color: var(--searchbar-button-hover);
 }
+
 .paneel.opdrachten {
-  max-height: 590px; /* or any desired height */
+  max-height: 590px; 
   overflow-y: auto;
-  padding-right: 10px; /* optional: for better scroll experience */
+  padding-right: 10px; 
 }
