@@ -20,6 +20,7 @@ $result = $connection->query($sql);
   <meta charset="UTF-8">
   <title>Opdrachten Overzicht</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     .searchbar-container {
       display: flex;
@@ -69,7 +70,6 @@ $result = $connection->query($sql);
     <div class="searchbar-container">
       <form method="GET" action="">
         <input type="text" name="zoekterm" placeholder="Zoek opdrachten..." value="<?= isset($_GET['zoekterm']) ? htmlspecialchars($_GET['zoekterm']) : '' ?>">
-        <button type="submit">🔍</button>
       </form>
     </div>
     
@@ -107,7 +107,7 @@ $result = $connection->query($sql);
 
     <!-- hierin staat de Opdracht Info -->
     <div class="paneel opdracht-info">
-      <h2>Opdracht <span style="color:#00b3a4;">INFO</span></h2>
+      <h2>Opdracht<span style="color:#00b3a4;">INFO</span></h2>
       <img src="VacatureImage.png" alt="Opdracht afbeelding">
       <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..."</p>
     </div>
