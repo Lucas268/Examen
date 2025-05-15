@@ -84,7 +84,7 @@ $result = $connection->query($sql);
       </form>
     </div>
     <div>
-      <button onclick="location.href='/aanmaak-pagina/aanmaak.php'">Aanmaak Pagina</button>
+      <button onclick="location.href='/aanmaak-pagina/aanmaak.php'">Opdracht aanmaken</button>
       <?php if (isset($_SESSION['email'])): ?>
         <button onclick="location.href='/logout.php'">Logout</button>
       <?php else: ?>
