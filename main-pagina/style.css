@@ -173,3 +173,13 @@ button{
   overflow-y: auto;
   padding-right: 10px; 
 }
+
+.opdracht p:nth-of-type(1) {
+  color: #666;
+  font-weight: 500;
+}
+
+.opdracht-info h4 {
+  color: #666;
+  font-weight: 500;
+}
