@@ -1,0 +1,185 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #e4e4e4 url('Group29.png') no-repeat bottom -10px right -80px;
+  background-size: 450px auto; /* iets kleiner voor subtielere look */
+  background-attachment: fixed;
+  font-family: 'Poppins', sans-serif;
+
+}
+button{
+    font-family: 'Poppins', sans-serif;
+}
+.navbar {
+  background-color: #004f51;
+  padding: 15px 30px;
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar span {
+  color: #00b3a4;
+}
+
+.navbar button {
+  padding: 6px 12px;
+  background-color: #00b3a4;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.navbar button:hover {
+  background-color: #008f87;
+}
+
+.container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+.paneel {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.paneel::before {
+  content: '';
+  height: 30px;
+  width: 100%;
+  background-color: #004f51;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.opdrachten {
+  flex: 1;
+  padding: 20px;
+}
+
+.opdracht {
+  background: #f9f9f9;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  padding: 15px;
+}
+
+.opdracht h3 {
+  margin: 0 0 5px;
+}
+
+.opdracht .cta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.opdracht .cta button {
+  background: #004f51;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.opdracht-info {
+  flex: 2;
+  padding: 20px;
+}
+
+.opdracht-info img {
+  width: 100%;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+.welkom {
+  flex: 1;
+  padding: 20px;
+  color: #004f51;
+  background: none; /* 🔥 Achtergrond weggehaald */
+}
+
+.welkom h1 {
+  font-size: 1.8em;
+  font-weight: 300;
+}
+
+.welkom h1 span {
+  font-weight: 700;
+}
+
+:root {
+  --searchbar-bg: #d6e4e5;
+  --searchbar-border: #ccc;
+  --searchbar-text: #000000;
+  --searchbar-button-bg: #00b3a4;
+  --searchbar-button-text: #ffffff;
+  --searchbar-button-hover: #009688;
+}
+
+.searchbar-container {
+  display: flex;
+  align-items: center;
+}
+
+.searchbar-container form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.searchbar-container input[type="text"] {
+  padding: 6px 10px;
+  border: 1px solid var(--searchbar-border);
+  border-radius: 4px;
+  background-color: var(--searchbar-bg);
+  color: var(--searchbar-text);
+  width: 450px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.searchbar-container button {
+  padding: 6px 12px;
+  background-color: var(--searchbar-button-bg);
+  border: none;
+  color: var(--searchbar-button-text);
+  border-radius: 4px;
+  cursor: pointer;
+  
+}
+
+.searchbar-container button:hover {
+  background-color: var(--searchbar-button-hover);
+}
+
+.paneel.opdrachten {
+  max-height: 590px; 
+  overflow-y: auto;
+  padding-right: 10px; 
+}
+
+.opdracht p:nth-of-type(1) {
+  color: #666;
+  font-weight: 500;
+}
+
+.opdracht-info h4 {
+  color: #666;
+  font-weight: 500;
+}
