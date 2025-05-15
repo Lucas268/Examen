@@ -101,9 +101,6 @@ $result = $connection->query($sql);
             <h3><?= htmlspecialchars($row['title']); ?></h3>
             <p><?= htmlspecialchars($row['bedrijf']); ?></p>
             <p>➤ Beschrijving<br><?= htmlspecialchars($row['description']); ?></p>
-            <?php if (!empty($row['thumbnail'])): ?>
-              <img src="<?= htmlspecialchars($row['thumbnail']); ?>" alt="Thumbnail" style="max-width: 100%; height: auto;">
-            <?php endif; ?>
             <div class="cta">
               <button>Solliciteren</button>
             </div>
