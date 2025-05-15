@@ -2,9 +2,8 @@
 require '../database/db.php';
 session_start();
 
-
 if (isset($_SESSION['user_id'])) {
-    $username = $_SESSION['email']; 
+    $username = $_SESSION['email'];
 } else {
     $username = null;
 }
@@ -21,28 +20,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['thumbnail']) && $_FILES['thumbnail']['error'] === UPLOAD_ERR_OK) {
         $fileTmpPath = $_FILES['thumbnail']['tmp_name'];
         $fileName = $_FILES['thumbnail']['name'];
-        $fileSize = $_FILES['thumbnail']['size'];
-        $fileType = $_FILES['thumbnail']['type'];
-
-
         $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
-        $sanitizedFileName = preg_replace("/[^a-zA-Z0-9._-]/", "_", $fileName); // Sanitize file name
+        $sanitizedFileName = preg_replace("/[^a-zA-Z0-9._-]/", "_", $fileName);
 
         if (!in_array(strtolower($fileExtension), ['jpg', 'jpeg', 'png', 'gif'])) {
             echo "Invalid file type. Only JPG, PNG, and GIF files are allowed.";
             exit();
         }
 
-        $uploadDir = '../uploads/';  
-
+        $uploadDir = '../uploads/';
         if (!is_dir($uploadDir)) {
-            mkdir($uploadDir, 0777, true); // Create the directory if it doesn't exist
+            mkdir($uploadDir, 0777, true);
         }
 
-        $uploadFilePath = $uploadDir . $sanitizedFileName;
+        $webPath = '/uploads/' . $sanitizedFileName;
+        $fullPath = $uploadDir . $sanitizedFileName;
 
-        if (move_uploaded_file($fileTmpPath, $uploadFilePath)) {
-            $thumbnailPath = $uploadFilePath;
+        if (move_uploaded_file($fileTmpPath, $fullPath)) {
+            $thumbnailPath = $webPath; // Use web path for DB
         } else {
             echo "Error uploading file.";
             exit();
@@ -67,12 +62,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   </script>";
         } else {
             echo "Error executing query: " . mysqli_error($connection);
-            file_put_contents('error_log.txt', "Error executing query: " . mysqli_error($connection) . "\n", FILE_APPEND);
         }
 
         mysqli_stmt_close($stmt);
     } else {
         echo "Error preparing query: " . mysqli_error($connection);
-        file_put_contents('error_log.txt', "Error preparing query: " . mysqli_error($connection) . "\n", FILE_APPEND);
     }
 }
+?>
