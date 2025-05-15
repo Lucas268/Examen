@@ -1,8 +1,8 @@
 <?php
 $hostname = "localhost";
-$username = "root";
+$username = "extern";
 $password = "extern";     
-$dbname = "extern_challenge";
+$dbname = "externe_challenge";
 
 $connection = mysqli_connect($hostname, $username, $password, $dbname);
 
