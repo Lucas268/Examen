@@ -1,3 +1,0 @@
-Error preparing query: Unknown column 'opdracht' in 'field list'
-Error preparing query: Unknown column 'codetaal' in 'field list'
-Error preparing query: Unknown column 'codetaal' in 'field list'
