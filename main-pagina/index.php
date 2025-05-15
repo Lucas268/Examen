@@ -20,6 +20,8 @@ $result = $connection->query($sql);
   <meta charset="UTF-8">
   <title>Opdrachten Overzicht</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
     .searchbar-container {
       display: flex;
@@ -45,28 +47,45 @@ $result = $connection->query($sql);
       border-radius: 4px;
       cursor: pointer;
     }
+
+    .navbar button {
+      padding: 6px 12px;
+      background-color: #00b3a4;
+      border: none;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+
+    .navbar button:hover {
+      background-color: #008f87;
+    }
   </style>
 </head>
 <body>
   <div class="navbar">
     <div>Open<span>OPDRACHTEN</span> 🔍</div>
     
-    <!-- Search bar here -->
+    <!-- hier staat alles voor de zoekbar -->
     <div class="searchbar-container">
       <form method="GET" action="">
         <input type="text" name="zoekterm" placeholder="Zoek opdrachten..." value="<?= isset($_GET['zoekterm']) ? htmlspecialchars($_GET['zoekterm']) : '' ?>">
-        <button type="submit">🔍</button>
       </form>
     </div>
     
     <div>
       <button onclick="location.href='/aanmaak-pagina/aanmaak.php'">Aanmaak Pagina</button>
-      <button onclick="location.href='/inlog-pagina/inlog.php'">Login</button>
+      <?php if (isset($_SESSION['email'])): ?>
+        <button onclick="location.href='/logout.php'">Logout</button>
+      <?php else: ?>
+        <button onclick="location.href='/inlog-pagina/inlog.php'">Login</button>
+      <?php endif; ?>
     </div>
   </div>
 
   <div class="container">
-    <!-- Opdrachten -->
+    <!-- hier staan de Opdrachten in vertoond -->
     <div class="paneel opdrachten">
       <?php if ($result && $result->num_rows > 0): ?>
         <?php while ($row = $result->fetch_assoc()): ?>
@@ -87,9 +106,9 @@ $result = $connection->query($sql);
       <?php endif; ?>
     </div>
 
-    <!-- Opdracht Info -->
+    <!-- hierin staat de Opdracht Info -->
     <div class="paneel opdracht-info">
-      <h2>Opdracht <span style="color:#00b3a4;">INFO</span></h2>
+      <h2>Opdracht<span style="color:#00b3a4;">INFO</span></h2>
       <img src="VacatureImage.png" alt="Opdracht afbeelding">
       <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..."</p>
     </div>

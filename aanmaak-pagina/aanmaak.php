@@ -9,17 +9,16 @@ require 'vacature_aanmaak_func.php';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vacature Aanmaken</title>
   <link rel="stylesheet" href="aanmaak.css">
+
 </head>
 <body>
   <div class="header">
     <h1>mijnVISTA</h1>
-    <div class="search-bar">
-      <input type="text" placeholder="Zoeken">
-    </div>
+    <button onclick="location.href='../main-pagina/index.php'" style="position: absolute; top: 10px; right: 10px;">Terug</button>
   </div>
 
   <div class="container">
-    <div class="close-button">&times;</div>
+    
     <h2>Vacature <strong>AANMAKEN</strong></h2>
     <form action="vacature_aanmaak_func.php" method="POST" enctype="multipart/form-data">
       <div class="form-group">
@@ -60,5 +59,19 @@ require 'vacature_aanmaak_func.php';
       </div>
     </form>
   </div>
+
+  <script>
+  const form = document.querySelector('form');
+  const submitButton = document.querySelector('.submit-button');
+
+  form.addEventListener('submit', () => {
+    submitButton.style.backgroundColor = '#E56642';
+    submitButton.style.color = 'white';
+  });
+</script>
+
 </body>
 </html>
+
+
+
