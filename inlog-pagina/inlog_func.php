@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $_SESSION['email'] = $email;
 
                     error_log("✅ Login successful for $email");
-                    header("Location: /main-pagina/index.php");
+                    header("Location: /index.php");
                     exit();
                 } else {
                     echo "Invalid email or password.";

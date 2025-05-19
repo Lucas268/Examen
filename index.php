@@ -1,5 +1,5 @@
 <?php
-require '../database/db.php';
+require 'database/db.php';
 session_start();
 
 $zoekterm = isset($_GET['zoekterm']) ? $connection->real_escape_string($_GET['zoekterm']) : '';
