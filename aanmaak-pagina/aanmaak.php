@@ -14,7 +14,7 @@ require 'vacature_aanmaak_func.php';
 <body>
   <div class="header">
     <h1>mijnVISTA</h1>
-    <button onclick="location.href='../main-pagina/index.php'" style="position: absolute; top: 10px; right: 10px;">Terug</button>
+    <button onclick="location.href='../index.php'" style="position: absolute; top: 10px; right: 10px;">Terug</button>
   </div>
 
   <div class="container">

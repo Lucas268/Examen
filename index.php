@@ -2,13 +2,49 @@
 require 'database/db.php';
 session_start();
 
+// Handle signup POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['solliciteer_id']) && isset($_SESSION['email'])) {
+    $vacature_id = intval($_POST['solliciteer_id']);
+    $user_email = $connection->real_escape_string($_SESSION['email']);
+    // Get current inschrijvingen
+    $res = $connection->query("SELECT Inschrijvingen FROM vacatures WHERE id=$vacature_id");
+    $row = $res->fetch_assoc();
+    $inschrijvingen = $row ? explode(',', $row['Inschrijvingen']) : [];
+    if (!in_array($user_email, $inschrijvingen)) {
+        $inschrijvingen[] = $user_email;
+        $new_Inschrijvingen = $connection->real_escape_string(implode(',', array_filter($inschrijvingen)));
+        $connection->query("UPDATE vacatures SET Inschrijvingen='$new_Inschrijvingen' WHERE id=$vacature_id");
+        $signup_message = "Je bent succesvol ingeschreven!";
+    } else {
+        $signup_message = "Je bent al ingeschreven voor deze opdracht.";
+    }
+}
+
+// Handle uitschrijven POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['uitschrijf_id']) && isset($_SESSION['email'])) {
+    $vacature_id = intval($_POST['uitschrijf_id']);
+    $user_email = $connection->real_escape_string($_SESSION['email']);
+    $res = $connection->query("SELECT Inschrijvingen FROM vacatures WHERE id=$vacature_id");
+    $row = $res->fetch_assoc();
+    $inschrijvingen = $row ? explode(',', $row['Inschrijvingen']) : [];
+    $inschrijvingen = array_filter($inschrijvingen, function($email) use ($user_email) {
+        return $email !== $user_email && $email !== '';
+    });
+    $new_Inschrijvingen = $connection->real_escape_string(implode(',', $inschrijvingen));
+    $connection->query("UPDATE vacatures SET Inschrijvingen='$new_Inschrijvingen' WHERE id=$vacature_id");
+    $signup_message = "Je bent uitgeschreven voor deze opdracht.";
+}
+
 $zoekterm = isset($_GET['zoekterm']) ? $connection->real_escape_string($_GET['zoekterm']) : '';
 $sql = !empty($zoekterm) ? 
-    "SELECT id, title, bedrijf, description, thumbnail, start_datum, eind_datum FROM vacatures 
+    "SELECT id, title, bedrijf, description, thumbnail, start_datum, eind_datum, creator_email, Inschrijvingen FROM vacatures 
      WHERE title LIKE '%$zoekterm%' OR bedrijf LIKE '%$zoekterm%' OR description LIKE '%$zoekterm%'" :
-    "SELECT id, title, bedrijf, description, thumbnail, start_datum, eind_datum FROM vacatures";
+    "SELECT id, title, bedrijf, description, thumbnail, start_datum, eind_datum, creator_email, Inschrijvingen FROM vacatures";
 
 $result = $connection->query($sql);
+if ($result === false) {
+    die("SQL Fout: " . $connection->error);
+}
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -101,8 +137,18 @@ $result = $connection->query($sql);
 
   <div class="container">
     <div class="paneel opdrachten">
+      <?php if (isset($signup_message)): ?>
+        <p style="color:green;"><?= htmlspecialchars($signup_message) ?></p>
+      <?php endif; ?>
       <?php if ($result && $result->num_rows > 0): ?>
         <?php while ($row = $result->fetch_assoc()): ?>
+          <?php
+            $already_signed_up = false;
+            if (isset($_SESSION['email'])) {
+                $inschrijvingen = array_filter(explode(',', $row['Inschrijvingen'] ?? ''));
+                $already_signed_up = in_array($_SESSION['email'], $inschrijvingen);
+            }
+          ?>
           <div class="opdracht" onclick="showInfo(
             '<?= htmlspecialchars($row['title'], ENT_QUOTES) ?>',
             '<?= htmlspecialchars($row['bedrijf'], ENT_QUOTES) ?>',
@@ -117,7 +163,21 @@ $result = $connection->query($sql);
             <p><strong>Einddatum:</strong> <?= htmlspecialchars($row['eind_datum']); ?></p>
             <p>➤ Beschrijving<br><?= htmlspecialchars($row['description']); ?></p>
             <div class="cta">
-              <button>Solliciteren</button>
+              <?php if (!isset($_SESSION['email'])): ?>
+                <button onclick="location.href='/inlog-pagina/inlog.php'">Login om te solliciteren</button>
+              <?php elseif ($_SESSION['email'] === ($row['creator_email'] ?? '')): ?>
+                <button disabled>Eigen opdracht</button>
+              <?php elseif ($already_signed_up): ?>
+                <form method="POST" style="display:inline;">
+                  <input type="hidden" name="uitschrijf_id" value="<?= $row['id'] ?>">
+                  <button type="submit" style="background-color:#e74c3c;">Uitschrijven</button>
+                </form>
+              <?php else: ?>
+                <form method="POST" style="display:inline;">
+                  <input type="hidden" name="solliciteer_id" value="<?= $row['id'] ?>">
+                  <button type="submit">Solliciteren</button>
+                </form>
+              <?php endif; ?>
             </div>
           </div>
         <?php endwhile; ?>

@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "<p>Redirecting in 5 seconds...</p>";
             echo "<script>
                     setTimeout(function() {
-                        window.location.href = '../main-pagina/index.php';
+                        window.location.href = '../index.php';
                     }, 5000);
                   </script>";
         } else {
