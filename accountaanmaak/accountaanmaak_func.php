@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['email'] = $email; // Store email in session
 
         // Redirect the user to the main page after successful registration
-        header("Location: ../main-pagina/index.php");
+        header("Location: ../index.php");
         exit();
     } else {
         echo json_encode(['success' => false, 'error' => 'Failed to insert data: ' . mysqli_error($connection)]);
