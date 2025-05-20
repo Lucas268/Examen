@@ -17,69 +17,7 @@ $result = $connection->query($sql);
   <title>Opdrachten Overzicht</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    .searchbar-container {
-      display: flex;
-      align-items: center;
-    }
-    .searchbar-container form {
-      display: flex;
-      gap: 0.5rem;
-    }
-    .searchbar-container input[type="text"] {
-      padding: 6px 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    .searchbar-container button, .navbar button {
-      padding: 6px 12px;
-      background-color: #00b3a4;
-      border: none;
-      color: white;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .navbar button:hover {
-      background-color: #008f87;
-    }
-    .paneel.opdracht-info {
-      display: none;
-      position: relative;
-    }
-    .paneel.opdracht-info.active {
-      display: block;
-    }
-    .close-btn {
-      position: absolute;
-      top: 2px;
-      right: 12px;
-      font-size: 20px;
-      cursor: pointer;
-      color: #888;
-    }
-    .close-btn:hover {
-      color: black;
-    }
-    /* Optioneel: iets meer ruimte tussen data in lijst */
-    .opdracht p {
-      margin: 0.2rem 0;
-    }
-  </style>
-  <script>
-    function showInfo(title, bedrijf, description, imageSrc, startDatum, eindDatum) {
-      const panel = document.querySelector('.opdracht-info');
-      panel.classList.add('active');
-      document.getElementById('info-title').innerText = title;
-      document.getElementById('info-bedrijf').innerText = bedrijf;
-      document.getElementById('info-description').innerText = description;
-      document.getElementById('info-img').src = imageSrc || '/images/default.png';
-      document.getElementById('info-start').innerText = startDatum || '-';
-      document.getElementById('info-eind').innerText = eindDatum || '-';
-    }
-    function closeInfo() {
-      document.querySelector('.opdracht-info').classList.remove('active');
-    }
-  </script>
+
 </head>
 <body>
   <div class="navbar">
@@ -142,3 +80,19 @@ $result = $connection->query($sql);
   </div>
 </body>
 </html>
+
+  <script>
+    function showInfo(title, bedrijf, description, imageSrc, startDatum, eindDatum) {
+      const panel = document.querySelector('.opdracht-info');
+      panel.classList.add('active');
+      document.getElementById('info-title').innerText = title;
+      document.getElementById('info-bedrijf').innerText = bedrijf;
+      document.getElementById('info-description').innerText = description;
+      document.getElementById('info-img').src = imageSrc || '/images/default.png';
+      document.getElementById('info-start').innerText = startDatum || '-';
+      document.getElementById('info-eind').innerText = eindDatum || '-';
+    }
+    function closeInfo() {
+      document.querySelector('.opdracht-info').classList.remove('active');
+    }
+  </script>
