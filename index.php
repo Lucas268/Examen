@@ -6,7 +6,6 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['solliciteer_id']) && isset($_SESSION['email'])) {
     $vacature_id = intval($_POST['solliciteer_id']);
     $user_email = $connection->real_escape_string($_SESSION['email']);
-    // Get current inschrijvingen
     $res = $connection->query("SELECT Inschrijvingen FROM vacatures WHERE id=$vacature_id");
     $row = $res->fetch_assoc();
     $inschrijvingen = $row ? explode(',', $row['Inschrijvingen']) : [];
@@ -35,11 +34,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['uitschrijf_id']) && i
     $signup_message = "Je bent uitgeschreven voor deze opdracht.";
 }
 
+// Handle delete POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id']) && isset($_SESSION['email'])) {
+    $vacature_id = intval($_POST['delete_id']);
+    // Controleer of de gebruiker de eigenaar is
+    $res = $connection->query("SELECT creator_email FROM vacatures WHERE id=$vacature_id");
+    $row = $res->fetch_assoc();
+    if ($row && $row['creator_email'] === $_SESSION['email']) {
+        $connection->query("DELETE FROM vacatures WHERE id=$vacature_id");
+        $signup_message = "Opdracht verwijderd.";
+    }
+}
+
 $zoekterm = isset($_GET['zoekterm']) ? $connection->real_escape_string($_GET['zoekterm']) : '';
 $sql = !empty($zoekterm) ? 
-    "SELECT id, title, bedrijf, description, thumbnail, start_datum, eind_datum, creator_email, Inschrijvingen FROM vacatures 
+    "SELECT id, title, bedrijf, description, thumbnail, start_datum, eind_datum, creator_email, Inschrijvingen, programmeertalen FROM vacatures 
      WHERE title LIKE '%$zoekterm%' OR bedrijf LIKE '%$zoekterm%' OR description LIKE '%$zoekterm%'" :
-    "SELECT id, title, bedrijf, description, thumbnail, start_datum, eind_datum, creator_email, Inschrijvingen FROM vacatures";
+    "SELECT id, title, bedrijf, description, thumbnail, start_datum, eind_datum, creator_email, Inschrijvingen, programmeertalen FROM vacatures";
 
 $result = $connection->query($sql);
 if ($result === false) {
@@ -102,7 +113,7 @@ if ($result === false) {
     }
   </style>
   <script>
-    function showInfo(title, bedrijf, description, imageSrc, startDatum, eindDatum) {
+    function showInfo(title, bedrijf, description, imageSrc, startDatum, eindDatum, opdrachtId, creatorEmail, programmeertalen) {
       const panel = document.querySelector('.opdracht-info');
       panel.classList.add('active');
       document.getElementById('info-title').innerText = title;
@@ -111,6 +122,22 @@ if ($result === false) {
       document.getElementById('info-img').src = imageSrc || '/images/default.png';
       document.getElementById('info-start').innerText = startDatum || '-';
       document.getElementById('info-eind').innerText = eindDatum || '-';
+      document.getElementById('info-programmeertalen').innerText = programmeertalen || '-';
+
+      // Toon bewerk/verwijder knoppen alleen als eigenaar
+      const editDeleteDiv = document.getElementById('edit-delete-btns');
+      <?php if (isset($_SESSION['email'])): ?>
+        const loggedInEmail = <?= json_encode($_SESSION['email']) ?>;
+        if (creatorEmail === loggedInEmail) {
+          editDeleteDiv.style.display = 'block';
+          document.getElementById('edit-link').href = '/index_Func.php?id=' + opdrachtId;
+          document.getElementById('delete-id').value = opdrachtId;
+        } else {
+          editDeleteDiv.style.display = 'none';
+        }
+      <?php else: ?>
+        editDeleteDiv.style.display = 'none';
+      <?php endif; ?>
     }
     function closeInfo() {
       document.querySelector('.opdracht-info').classList.remove('active');
@@ -155,7 +182,10 @@ if ($result === false) {
             '<?= htmlspecialchars($row['description'], ENT_QUOTES) ?>',
             '<?= htmlspecialchars($row['thumbnail'] ?: '/images/default.png', ENT_QUOTES) ?>',
             '<?= htmlspecialchars($row['start_datum'], ENT_QUOTES) ?>',
-            '<?= htmlspecialchars($row['eind_datum'], ENT_QUOTES) ?>'
+            '<?= htmlspecialchars($row['eind_datum'], ENT_QUOTES) ?>',
+            '<?= $row['id'] ?>', // opdrachtId
+            '<?= htmlspecialchars($row['creator_email'], ENT_QUOTES) ?>', // creatorEmail
+            '<?= htmlspecialchars($row['programmeertalen'] ?? '', ENT_QUOTES) ?>' // programmeertalen
           )">
             <h3><?= htmlspecialchars($row['title']); ?></h3>
             <p><strong>Bedrijf:</strong> <?= htmlspecialchars($row['bedrijf']); ?></p>
@@ -192,8 +222,16 @@ if ($result === false) {
       <h4 id="info-bedrijf"></h4>
       <p><strong>Startdatum:</strong> <span id="info-start"></span></p>
       <p><strong>Einddatum:</strong> <span id="info-eind"></span></p>
+      <p><strong>Programmeertalen:</strong> <span id="info-programmeertalen"></span></p>
       <img id="info-img" src="" alt="Opdracht afbeelding" style="max-width: 100%; height: auto; margin-top: 10px;">
       <p id="info-description"></p>
+      <div id="edit-delete-btns" style="display:none; margin-top:10px;">
+        <a id="edit-link" href="#" class="btn" style="background:#003F41;color:#fff;padding:6px 12px;border-radius:4px;text-decoration:none;">Bewerken</a>
+        <form method="POST" style="display:inline;">
+          <input type="hidden" name="delete_id" id="delete-id" value="">
+          <button type="submit" style="background:#D6715B;color:#fff;padding:6px 12px;border:none;border-radius:4px;cursor:pointer;">Verwijderen</button>
+        </form>
+      </div>
     </div>
 
     <div class="welkom">
