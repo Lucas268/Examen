@@ -2,11 +2,11 @@
 require 'database/db.php';
 session_start();
 
-// Handle signup POST
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['solliciteer_id']) && isset($_SESSION['email'])) {
     $vacature_id = intval($_POST['solliciteer_id']);
     $user_email = $connection->real_escape_string($_SESSION['email']);
-    // Get current inschrijvingen
+
     $res = $connection->query("SELECT Inschrijvingen FROM vacatures WHERE id=$vacature_id");
     $row = $res->fetch_assoc();
     $inschrijvingen = $row ? explode(',', $row['Inschrijvingen']) : [];
@@ -20,7 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['solliciteer_id']) && 
     }
 }
 
-// Handle uitschrijven POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['uitschrijf_id']) && isset($_SESSION['email'])) {
     $vacature_id = intval($_POST['uitschrijf_id']);
     $user_email = $connection->real_escape_string($_SESSION['email']);
