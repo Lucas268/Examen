@@ -2,7 +2,6 @@
 require 'database/db.php';
 session_start();
 
-// Handle signup POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['solliciteer_id']) && isset($_SESSION['email'])) {
     $vacature_id = intval($_POST['solliciteer_id']);
     $user_email = $connection->real_escape_string($_SESSION['email']);
@@ -18,8 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['solliciteer_id']) && 
         $signup_message = "Je bent al ingeschreven voor deze opdracht.";
     }
 }
-
-// Handle uitschrijven POST
+// Uitschrijven
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['uitschrijf_id']) && isset($_SESSION['email'])) {
     $vacature_id = intval($_POST['uitschrijf_id']);
     $user_email = $connection->real_escape_string($_SESSION['email']);
@@ -34,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['uitschrijf_id']) && i
     $signup_message = "Je bent uitgeschreven voor deze opdracht.";
 }
 
-// Handle delete POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id']) && isset($_SESSION['email'])) {
     $vacature_id = intval($_POST['delete_id']);
     // Controleer of de gebruiker de eigenaar is
@@ -107,7 +104,6 @@ if ($result === false) {
     .close-btn:hover {
       color: black;
     }
-    /* Optioneel: iets meer ruimte tussen data in lijst */
     .opdracht p {
       margin: 0.2rem 0;
     }
@@ -124,13 +120,12 @@ if ($result === false) {
       document.getElementById('info-eind').innerText = eindDatum || '-';
       document.getElementById('info-programmeertalen').innerText = programmeertalen || '-';
 
-      // Toon bewerk/verwijder knoppen alleen als eigenaar
       const editDeleteDiv = document.getElementById('edit-delete-btns');
       <?php if (isset($_SESSION['email'])): ?>
         const loggedInEmail = <?= json_encode($_SESSION['email']) ?>;
         if (creatorEmail === loggedInEmail) {
           editDeleteDiv.style.display = 'block';
-          document.getElementById('edit-link').href = '/index_Func.php?id=' + opdrachtId;
+          document.getElementById('edit-link').href = 'index_Func.php?id=' + opdrachtId;
           document.getElementById('delete-id').value = opdrachtId;
         } else {
           editDeleteDiv.style.display = 'none';
@@ -183,9 +178,9 @@ if ($result === false) {
             '<?= htmlspecialchars($row['thumbnail'] ?: '/images/default.png', ENT_QUOTES) ?>',
             '<?= htmlspecialchars($row['start_datum'], ENT_QUOTES) ?>',
             '<?= htmlspecialchars($row['eind_datum'], ENT_QUOTES) ?>',
-            '<?= $row['id'] ?>', // opdrachtId
-            '<?= htmlspecialchars($row['creator_email'], ENT_QUOTES) ?>', // creatorEmail
-            '<?= htmlspecialchars($row['programmeertalen'] ?? '', ENT_QUOTES) ?>' // programmeertalen
+            '<?= $row['id'] ?>', 
+            '<?= htmlspecialchars($row['creator_email'], ENT_QUOTES) ?>',
+            '<?= htmlspecialchars($row['programmeertalen'] ?? '', ENT_QUOTES) ?>'
           )">
             <h3><?= htmlspecialchars($row['title']); ?></h3>
             <p><strong>Bedrijf:</strong> <?= htmlspecialchars($row['bedrijf']); ?></p>

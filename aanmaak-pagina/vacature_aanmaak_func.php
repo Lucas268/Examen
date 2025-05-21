@@ -15,6 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $programmeertalen = $_POST['programmeertalen'];
     $startdatum = $_POST['startdatum'];
     $einddatum = $_POST['einddatum'];
+    if ($einddatum < $startdatum) {
+        die('De einddatum mag niet vóór de startdatum liggen.');
+    }
     $beschrijving = $_POST['beschrijving'];
 
     if (isset($_FILES['thumbnail']) && $_FILES['thumbnail']['error'] === UPLOAD_ERR_OK) {

@@ -1,6 +1,12 @@
 <?php
 require '../database/db.php';
 require 'vacature_aanmaak_func.php';
+
+
+if (!isset($_SESSION['email'])) {
+    header('Location: /inlog-pagina/inlog.php');
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -63,8 +69,32 @@ require 'vacature_aanmaak_func.php';
   <script>
   const form = document.querySelector('form');
   const submitButton = document.querySelector('.submit-button');
+  const startInput = document.getElementById('startdatum');
+  const endInput = document.getElementById('einddatum');
 
-  form.addEventListener('submit', () => {
+  // Zet de minimale einddatum telkens als de startdatum verandert
+  startInput.addEventListener('change', function() {
+    endInput.min = startInput.value;
+    // Optioneel: reset einddatum als die nu ongeldig is
+    if (endInput.value && endInput.value < startInput.value) {
+      endInput.value = '';
+    }
+  });
+
+  // Bij laden van de pagina: zet min attribuut als startdatum al ingevuld is
+  if (startInput.value) {
+    endInput.min = startInput.value;
+  }
+
+  form.addEventListener('submit', function(e) {
+    const start = startInput.value;
+    const end = endInput.value;
+    if (start && end && end < start) {
+      e.preventDefault();
+      alert('De einddatum mag niet vóór de startdatum liggen.');
+      endInput.focus();
+      return false;
+    }
     submitButton.style.backgroundColor = '#E56642';
     submitButton.style.color = 'white';
   });
