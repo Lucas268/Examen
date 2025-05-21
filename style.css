@@ -1,24 +1,35 @@
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: #e4e4e4 url('Group29.png') no-repeat bottom -10px right -80px;
-  background-size: 450px auto; /* iets kleiner voor subtielere look */
-  background-attachment: fixed;
-  font-family: 'Poppins', sans-serif;
+/* Universal reset and layout fix */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: 'Poppins', sans-serif;
+  background: #e4e4e4 url('Group29.png') no-repeat bottom -2vh right -5vw;
+  background-size: 30vw auto;
+  background-attachment: fixed;
 }
-button{
-    font-family: 'Poppins', sans-serif;
+
+button {
+  font-family: 'Poppins', sans-serif;
 }
+
 .navbar {
   background-color: #004f51;
-  padding: 15px 30px;
+  padding: 1rem 2rem;
   color: white;
-  font-size: 1.2em;
+  font-size: 1.2rem;
   font-weight: bold;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .navbar span {
@@ -26,13 +37,13 @@ button{
 }
 
 .navbar button {
-  padding: 6px 12px;
+  padding: 0.4rem 0.75rem;
   background-color: #00b3a4;
   border: none;
   color: white;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   cursor: pointer;
-  margin-left: 5px;
+  margin-left: 0.3rem;
 }
 
 .navbar button:hover {
@@ -41,26 +52,32 @@ button{
 
 .container {
   display: flex;
-  gap: 20px;
-  padding: 20px;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 .paneel {
   background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  border-radius: 0.625rem;
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
   position: relative;
   display: flex;
   flex-direction: column;
+  flex: 1;
+  min-width: 18rem;
+  min-height: 6.25rem;
+  overflow: hidden;
 }
 
 .paneel::before {
   content: '';
-  height: 30px;
+  height: 1.875rem;
   width: 100%;
   background-color: #004f51;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 0.625rem;
+  border-top-right-radius: 0.625rem;
   position: absolute;
   top: 0;
   left: 0;
@@ -68,56 +85,61 @@ button{
 
 .opdrachten {
   flex: 1;
-  padding: 20px;
+  padding: 1.25rem;
+  overflow-y: auto;
+  max-height: 36.875rem;
+  padding-right: 0.625rem;
 }
 
 .opdracht {
   background: #f9f9f9;
-  border-radius: 15px;
-  margin-bottom: 15px;
-  padding: 15px;
+  border-radius: 0.9375rem;
+  margin-bottom: 0.9375rem;
+  padding: 0.9375rem;
 }
 
 .opdracht h3 {
-  margin: 0 0 5px;
+  margin: 0 0 0.3125rem;
 }
 
 .opdracht .cta {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 0.625rem;
+  flex-wrap: wrap;
+  gap: 0.625rem;
 }
 
 .opdracht .cta button {
   background: #004f51;
   color: white;
-  padding: 8px 15px;
+  padding: 0.5rem 0.9375rem;
   border: none;
-  border-radius: 20px;
+  border-radius: 1.25rem;
   cursor: pointer;
 }
 
 .opdracht-info {
   flex: 2;
-  padding: 20px;
+  padding: 1.25rem;
 }
 
 .opdracht-info img {
   width: 100%;
-  border-radius: 10px;
-  margin: 10px 0;
+  border-radius: 0.625rem;
+  margin: 0.625rem 0;
 }
 
 .welkom {
   flex: 1;
-  padding: 20px;
+  padding: 1.25rem;
   color: #004f51;
-  background: none; /* 🔥 Achtergrond weggehaald */
+  background: none;
 }
 
 .welkom h1 {
-  font-size: 1.8em;
+  font-size: 1.8rem;
   font-weight: 300;
 }
 
@@ -137,41 +159,39 @@ button{
 .searchbar-container {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.625rem;
 }
 
 .searchbar-container form {
   display: flex;
   gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .searchbar-container input[type="text"] {
-  padding: 6px 10px;
+  padding: 0.375rem 0.625rem;
   border: 1px solid var(--searchbar-border);
-  border-radius: 4px;
+  border-radius: 0.25rem;
   background-color: var(--searchbar-bg);
   color: var(--searchbar-text);
-  width: 450px;
+  width: 100%;
+  max-width: 28.125rem; /* 450px -> rem */
   font-family: 'Poppins', sans-serif;
 }
 
 .searchbar-container button {
-  padding: 6px 12px;
+  padding: 0.375rem 0.75rem;
   background-color: var(--searchbar-button-bg);
   border: none;
   color: var(--searchbar-button-text);
-  border-radius: 4px;
+  border-radius: 0.25rem;
   cursor: pointer;
-  
 }
 
 .searchbar-container button:hover {
   background-color: var(--searchbar-button-hover);
-}
-
-.paneel.opdrachten {
-  max-height: 590px; 
-  overflow-y: auto;
-  padding-right: 10px; 
 }
 
 .opdracht p:nth-of-type(1) {
@@ -184,49 +204,65 @@ button{
   font-weight: 500;
 }
 
-    .searchbar-container {
-      display: flex;
-      align-items: center;
-    }
-    .searchbar-container form {
-      display: flex;
-      gap: 0.5rem;
-    }
-    .searchbar-container input[type="text"] {
-      padding: 6px 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    .searchbar-container button, .navbar button {
-      padding: 6px 12px;
-      background-color: #00b3a4;
-      border: none;
-      color: white;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .navbar button:hover {
-      background-color: #008f87;
-    }
-    .paneel.opdracht-info {
-      display: none;
-      position: relative;
-    }
-    .paneel.opdracht-info.active {
-      display: block;
-    }
-    .close-btn {
-      position: absolute;
-      top: 2px;
-      right: 12px;
-      font-size: 20px;
-      cursor: pointer;
-      color: #888;
-    }
-    .close-btn:hover {
-      color: black;
-    }
-    /* Optioneel: iets meer ruimte tussen data in lijst */
-    .opdracht p {
-      margin: 0.2rem 0;
-    }
+.paneel.opdracht-info {
+  display: none;
+  position: relative;
+}
+
+.paneel.opdracht-info.active {
+  display: block;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0.125rem;
+  right: 0.75rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: #888;
+}
+
+.close-btn:hover {
+  color: black;
+}
+
+.opdracht p {
+  margin: 0.2rem 0;
+}
+
+/* Responsive styles */
+@media (max-width: 64rem) {
+  .container {
+    flex-direction: column;
+    padding: 0.625rem;
+  }
+
+  .paneel {
+    width: 100%;
+  }
+
+  .searchbar-container form {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .searchbar-container input[type="text"],
+  .searchbar-container button {
+    width: 100%;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.625rem;
+  }
+
+  .opdracht .cta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  body {
+    background-attachment: scroll; /* prevents mobile lag */
+  }
+}
