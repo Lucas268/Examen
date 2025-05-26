@@ -8,7 +8,7 @@ require 'accountaanmaak_func.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Aanmaken</title>
-    <link rel="stylesheet" href="./aanmaak.css">
+    <link rel="stylesheet" href="account.css">
 </head>
 <body>
     <div class="container">
