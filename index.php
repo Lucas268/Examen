@@ -141,6 +141,7 @@ if ($result === false) {
             <p><strong>Startdatum:</strong> <?= htmlspecialchars($row['start_datum']); ?></p>
             <p><strong>Einddatum:</strong> <?= htmlspecialchars($row['eind_datum']); ?></p>
             <p>➤ Beschrijving<br><?= htmlspecialchars($row['description']); ?></p>
+            
             <div class="cta">
               <?php if (!isset($_SESSION['email'])): ?>
                 <button onclick="location.href='/inlog-pagina/inlog.php'">Login om te solliciteren</button>
